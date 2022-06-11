@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Layout, Tabs } from "antd";
+import { Layout, Breadcrumb, Tabs } from "antd";
 import "./Content.css";
+import CardPage from "./Card";
 
 const { Content, Footer } = Layout;
 const { TabPane } = Tabs;
@@ -18,7 +18,6 @@ function debounce(fn, ms) {
 }
 
 const ContentPage = () => {
-  const history = useNavigate();
   const [dimensions, setDimensions] = useState({
     height: window.innerHeight,
     width: window.innerWidth,
@@ -39,14 +38,6 @@ const ContentPage = () => {
     };
   });
 
-
-  const onCategorySelect = (categoryName) => {
-    setCategory(categoryName);
-  };
-
-  const onCategoryDeselect = () => {
-    setCategory("");
-  };
 
   return (
     <>
@@ -79,10 +70,18 @@ const ContentPage = () => {
               : { padding: "0 30px" }
           }
         >
+          <Breadcrumb style={{ margin: "16px 0" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            {activeTabKey === "1" && (
+              <Breadcrumb.Item>ProblemStatements</Breadcrumb.Item>
+            )}
+          </Breadcrumb>
           <div className="site-layout-content">
-            {(activeTabKey === "1" && category === "") && <div style={{display: 'flex', justifyContent: 'center'}}>
-              {/* <SearchBar /> */}
-            </div>}
+            {activeTabKey === "1" && category === "" && (
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                {/* <SearchBar /> */}
+              </div>
+            )}
             <Tabs
               onChange={(activeKey) => {
                 setActiveTabkey(activeKey);
@@ -90,17 +89,7 @@ const ContentPage = () => {
               tabPosition={dimensions.width < 500 ? "top" : "left"}
             >
               <TabPane tab="Categories" key="1">
-                {category === "" ? (
-                  <div categorySelectHandler={onCategorySelect} />
-                ) : (
-                  <div categoryName={category} />
-                )}
-              </TabPane>
-              <TabPane tab="Favorites" key="2">
-                <div />
-              </TabPane>
-              <TabPane tab="My Forms" key="3">
-                <div />
+                <CardPage />
               </TabPane>
             </Tabs>
           </div>

@@ -7,7 +7,6 @@ const HomePage = () => {
   return (
     <>
       <NavbarPage />
-      <br />
       <ContentPage />
       <Link to="/form1">form1</Link>
       <Link to="/form2">form2</Link>
