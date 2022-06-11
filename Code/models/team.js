@@ -17,6 +17,11 @@ const TeamSchema = new mongoose.Schema({
         type: String,
         default: '',
     },
+    cdf_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'cdf',
+        required: true
+    },
   
 });
 

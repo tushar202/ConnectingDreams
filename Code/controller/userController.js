@@ -2,6 +2,7 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const catchAsyncError = require("../middleware/catchAsyncError");
+const mongoose = require('mongoose');
 
 exports.signup = catchAsyncError(async (req, res, next) => {
   if (!req.body.fname) {
@@ -130,4 +131,24 @@ exports.logout = catchAsyncError(async (req, res, next) => {
       message: "User Logged Out Successfully!",
     });
   }
+});
+
+exports.changeRoles = catchAsyncError(async (req,res,next) => {
+  const user_id = req.body.user_id;
+  const role = req.body.role;
+
+  // Check if valid mongoose id 
+  if(!mongoose.Types.ObjectId.isValid(user_id)){
+    return res.status(404).send('No User available with that ID');
+  }
+  else{
+    const updated_User = await User.findByIdAndUpdate(user_id,{role:role});
+    if (updated_User) {
+      return res.send({
+        success: true,
+        message: "Updates successfully",
+      });
+    }
+  }
+
 });

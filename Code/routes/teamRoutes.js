@@ -5,8 +5,8 @@ const teamController=require("../controller/teamController")
 
 
 
-router.post("/teamProposal",teamController.teamProposal );
-
+router.post("/teamProposal",teamController.teamProposal);
+router.get("/allTeams",teamController.view);
 
 
 

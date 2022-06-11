@@ -55,3 +55,8 @@ exports.create = catchAsyncError(async (req,res,next) => {
         });
     }
 });
+
+exports.getAll = catchAsyncError(async (req,res,next) => {
+    const allCaseStudy = await CDF.find();
+    res.status(200).json(allCaseStudy);
+});

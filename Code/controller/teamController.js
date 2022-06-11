@@ -4,8 +4,6 @@ const bcrypt = require("bcrypt");
 const catchAsyncError = require("../middleware/catchAsyncError");
 
 exports.teamProposal = catchAsyncError(async (req, res, next) => {
-  
-  
     const { tname, size, user, proposalLink} = req.body;
       const newTeam = new Team({
         tname: tname,
@@ -20,6 +18,9 @@ exports.teamProposal = catchAsyncError(async (req, res, next) => {
         message: "Team Proposal Submitted",
         savedTeam,
       });
-    
-  
 });
+
+exports.view = catchAsyncError(async (req, res, next) => {
+  const allTeams = await Team.find();
+  res.status(200).json(allTeams);
+})
