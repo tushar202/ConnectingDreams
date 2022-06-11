@@ -13,6 +13,8 @@ require('./utils/connectdb');
 
 //Router imports
 const userRouter = require('./routes/userRoutes');
+const sioRouter=require('./routes/sioRoutes')
+
 
 const app = express();
 const PORT = process.env.PORT || 7000;
@@ -29,7 +31,7 @@ app.use(cors({
 app.use(errorMiddleWare)
 //Base Routes
 app.use('/user', userRouter);
-
+app.use('/sio',sioRouter)
 app.get('/', (req,res) => {
     res.send('HOME');
 })
