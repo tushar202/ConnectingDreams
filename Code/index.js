@@ -14,6 +14,7 @@ require('./utils/connectdb');
 //Router imports
 const userRouter = require('./routes/userRoutes');
 const cdfRouter = require('./routes/cdfRoutes');
+const teamRouter = require('./routes/teamRoutes');
 const sioRouter=require('./routes/sioRoutes')
 
 
@@ -33,6 +34,7 @@ app.use(errorMiddleWare)
 //Base Routes
 app.use('/user', userRouter);
 app.use('/cdf', cdfRouter);
+app.use('/team',teamRouter);
 
 app.use('/sio',sioRouter)
 app.get('/', (req,res) => {
