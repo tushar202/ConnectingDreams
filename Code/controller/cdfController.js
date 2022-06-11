@@ -6,7 +6,7 @@ const multer = require("multer");
 const { storage } = require("../utils/CloudinaryUtils");
 const upload = multer({ storage });
 const cloudinary = require('cloudinary');
-
+const Dream=require('../models/dream')
 
 exports.create = catchAsyncError(async (req, res, next) => {
         const { title,
@@ -17,7 +17,9 @@ exports.create = catchAsyncError(async (req, res, next) => {
             implementation_end,
             instructions,
             tags,
-            location
+            location,
+            dream_id,
+            sio_id
         } = req.body;
         const pdf_link = req.files.map((f) => ({ proposalLink: f.path, fileName: f.filename }));
         const newCDF = new CDF({
@@ -31,6 +33,8 @@ exports.create = catchAsyncError(async (req, res, next) => {
             instructions: instructions,
             tags: tags,
             location: location,
+            dream_id:dream_id,
+            sio_id:sio_id
         });
         const saved_CDF = await newCDF.save();
         res.send({
@@ -50,3 +54,25 @@ exports.findOne = catchAsyncError(async (req,res,next) => {
     const oneCDF = await CDF.findById(id);
     res.status(200).json(oneCDF);
 })
+
+
+exports.getUnverifiedDreams=catchAsyncError(async(req,res,next)=>{
+    const result=await Dream.find({verified:false});
+    console.log(result)
+    res.status(200).send({
+        success:true,
+        dreams:result
+       
+    })
+})
+
+exports.verifyDream=catchAsyncError(async (req,res,next)=>{
+    const dreamId=req.body.id
+    const dream=await Dream.findOne({_id:dreamId})
+    dream.verified=true;
+    await dream.save()
+    res.status(200).send({
+        success:true,
+    })
+})
+

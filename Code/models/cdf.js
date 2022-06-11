@@ -41,6 +41,15 @@ const CDFSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    dream_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'dream',
+
+    },
+    sio_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'user'
+    }
     
 },{timestamps:true});
 
