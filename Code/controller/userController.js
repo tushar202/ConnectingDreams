@@ -41,6 +41,7 @@ exports.signup = catchAsyncError(async (req, res, next) => {
 
 exports.login = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;
+  console.log(125)
   User.findOne({ email }).then((dbUser) => {
     if (!dbUser) {
       return res.send({
