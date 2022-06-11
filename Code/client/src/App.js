@@ -9,6 +9,7 @@ import LandingPage from "./components/landingPage";
 import HomePage from "./components/homePage";
 import { userActions } from "./store/user";
 import SIOFormPage from "./components/sioFormPage";
+import CDFFormPage from "./components/cdfFormPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/home" element={<Navigate to='/' />} />
             <Route path="/form1" element={<Navigate to='/' />} />
+            <Route path="/form2" element={<Navigate to='/' />} />
           </Routes>
           </>
         ) : (
@@ -64,6 +66,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/form1" element={<SIOFormPage />} />
+            <Route path="/form2" element={<CDFFormPage />} />
           </Routes>
         )}
       </BrowserRouter>
