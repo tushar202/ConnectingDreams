@@ -7,8 +7,9 @@ exports.uploadDream=catchAsyncError(async(req,res,next)=>{
     const name=req.body.name
     const user=req.user._id
     const titleOfDream=req.body.titleOfDream
-    const drive=req.body.link
+    const drive=req.file;
     const contact=req.body.contact
+
     console.log(req.body)
     const newDream=new Dream({
         name:name,
@@ -17,6 +18,7 @@ exports.uploadDream=catchAsyncError(async(req,res,next)=>{
         drive:drive,
         contact:contact
     })
+    
     console.log(newDream)
     const result=await newDream.save()
     res.status(201).send({

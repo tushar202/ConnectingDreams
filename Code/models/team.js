@@ -13,11 +13,11 @@ const TeamSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'user'
     },
-    proposalLink: {
-        type: String,
-        default: '',
-    },
-  
+    proposalLink: [{
+       proposalLink:String,
+       fileName:String
+    }]
+    
 });
 
 const Team = mongoose.model('Team', TeamSchema);

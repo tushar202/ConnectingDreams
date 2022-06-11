@@ -2,29 +2,14 @@ const CDF = require("../models/cdf");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const catchAsyncError = require("../middleware/catchAsyncError");
+const multer = require("multer");
+const { storage } = require("../utils/CloudinaryUtils");
+const upload = multer({ storage });
+const cloudinary = require('cloudinary');
 
-exports.create = catchAsyncError(async (req,res,next) => {
-    if(!req.body.title) {
-        res.send({
-            success: false,
-            message: "Title of the Case Study is required",
-          });
-    }
-    else if(!req.body.pdf_link) {
-        res.send({
-            success: false,
-            message: "Please attach a document"
-        });
-    }
-    else if(!req.body.application_start_date){
-        res.send({
-            success: false,
-            message: "Please provide an application start date"
-        });
-    }
-    else {
-        const {title,
-            pdf_link,
+
+exports.create = catchAsyncError(async (req, res, next) => {
+        const { title,
             application_start_date,
             application_end_date,
             selection_process_result,
@@ -34,10 +19,10 @@ exports.create = catchAsyncError(async (req,res,next) => {
             tags,
             location
         } = req.body;
-
+        const pdf_link = req.files.map((f) => ({ proposalLink: f.path, fileName: f.filename }));
         const newCDF = new CDF({
             title: title,
-            pdf_link : pdf_link,
+            pdf_link: pdf_link,
             application_start_date: application_start_date,
             application_end_date: application_end_date,
             selection_process_result: selection_process_result,
@@ -53,5 +38,5 @@ exports.create = catchAsyncError(async (req,res,next) => {
             message: "Case Study added successfully!",
             saved_CDF,
         });
-    }
+    
 });

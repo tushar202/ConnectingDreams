@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const errorMiddleWare = require('./middleware/error')
+const multer=require('multer');
+
 
 if(process.env.NODE_ENV !== "production"){
     require('dotenv').config();
@@ -29,6 +31,29 @@ app.use(cors({
     credentials:true,
     optionsSuccessStatus:200,
 }));
+
+// const fileStroge=multer.diskStorage({
+//     destination:(req,file,cb)=>{
+//         cb(null,'media');
+//     },
+//     filename:(req,file,cb)=>{
+//         cb(null,new Date().toISOString().replace(/:/g, '-')+file.originalname);
+//     }
+// })
+
+// const fileFilter=(req,file,cb)=>{
+//     if(
+//         file.mimetype==='media/pdf'||
+//         file.mimetype==='media/jpg'||
+//         file.mimetype==='media/jpeg'
+//     ){
+//         cb(null,true);
+//     }else{
+//         cb(null,false);
+//     }
+// }
+
+// app.use(multer({storage:fileStroge,fileFilter:fileFilter}).single('media'));
 
 app.use(errorMiddleWare)
 //Base Routes

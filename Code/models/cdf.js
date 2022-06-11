@@ -5,14 +5,14 @@ const CDFSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    pdf_link : {
-        type: String,
-        required: true,
-    },
+    pdf_link : [{
+        proposalLink:String,
+        fileName:String
+     }],
     // TimeLine Structure 
     application_start_date: {
         type: Date,
-        required: true,
+        required: false,
     },
     application_end_date: {
         type: Date,
