@@ -6,7 +6,6 @@ import NavbarPage from "../navbarPage";
 import "./index.css";
 import axios from "axios";
 import { Table } from "antd";
-import { Tooltip } from "react-bootstrap";
 const { Content, Footer, Sider } = Layout;
 
 const CDFAdminPage = () => {
@@ -15,6 +14,7 @@ const CDFAdminPage = () => {
   const history = useNavigate();
 
   const onClickHandler = (key) => {
+    console.log(key);
     history('/createCaseStudy',{state:{id:key}});
   };
 
@@ -42,18 +42,16 @@ const CDFAdminPage = () => {
     },
     {
       title: "Verify & Create CaseStudy",
-      key: "verify",
-      dataIndex: "verify",
-      render: (_, record) => (
-        <Tooltip placement="top" title="Verify and Create CaseStudy">
+      key: "_id",
+      dataIndex: "_id",
+      render: (_id, record) => (
           <Button
             type="primary"
             disabled={isVerifying}
-            onClick={() => onClickHandler(record.key)}
+            onClick={() => onClickHandler(_id)}
           >
             Verify and Create CaseStudy
           </Button>
-        </Tooltip>
       ),
     },
   ];
@@ -104,9 +102,7 @@ const CDFAdminPage = () => {
     <Layout>
       <Content style={{ padding: "0 50px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
+          <Breadcrumb.Item>Pending Requests</Breadcrumb.Item>
         </Breadcrumb>
         <Layout
           className="site-layout-background"

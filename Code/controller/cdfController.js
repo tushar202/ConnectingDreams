@@ -66,6 +66,7 @@ exports.getUnverifiedDreams=catchAsyncError(async(req,res,next)=>{
 })
 
 exports.verifyDream=catchAsyncError(async (req,res,next)=>{
+    console.log(req.body)
     const dreamId=req.body.id
     const dream=await Dream.findOne({_id:dreamId})
     dream.verified=true;
