@@ -7,6 +7,8 @@ const { storage } = require("../utils/CloudinaryUtils");
 const upload = multer({ storage });
 const cloudinary = require('cloudinary');
 const Dream=require('../models/dream')
+const User=require('../models/user')
+
 
 exports.create = catchAsyncError(async (req, res, next) => {
         const { title,
@@ -73,6 +75,17 @@ exports.verifyDream=catchAsyncError(async (req,res,next)=>{
     await dream.save()
     res.status(200).send({
         success:true,
+    })
+})
+
+exports.assignRole=catchAsyncError(async(req,res,next)=>{
+    const id=req.body.id;
+    const role=req.body.role;
+    const user=await User.findOne({_id:id})
+    user.role=role
+    await user.save()
+    res.status(200).send({
+        success:true
     })
 })
 
