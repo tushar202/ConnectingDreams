@@ -13,6 +13,11 @@ const TeamSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'user'
     },
+    cdf_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'cdf',
+        required: true
+    },
     proposalLink: [{
        proposalLink:String,
        fileName:String

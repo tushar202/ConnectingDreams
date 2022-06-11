@@ -38,5 +38,15 @@ exports.create = catchAsyncError(async (req, res, next) => {
             message: "Case Study added successfully!",
             saved_CDF,
         });
-    
 });
+
+exports.getAll = catchAsyncError(async (req,res,next) => {
+    const allCaseStudy = await CDF.find();
+    res.status(200).json(allCaseStudy);
+});
+
+exports.findOne = catchAsyncError(async (req,res,next) => {
+    const id = req.params.id;
+    const oneCDF = await CDF.findById(id);
+    res.status(200).json(oneCDF);
+})
