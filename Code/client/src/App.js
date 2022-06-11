@@ -11,6 +11,8 @@ import { userActions } from "./store/user";
 import SIOFormPage from "./components/sioFormPage";
 import CDFFormPage from "./components/cdfFormPage";
 import CMFormPage from "./components/cmFormPage";
+import CaseStudyPage from "./components/caseStudyPage";
+import DreamUploadPage from "./components/dreamUploadPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -61,6 +63,8 @@ function App() {
             <Route path="/form1" element={<Navigate to='/' />} />
             <Route path="/form2" element={<Navigate to='/' />} />
             <Route path="/form3" element={<Navigate to='/' />} />
+            <Route path="/caseStudy/:id" element={<Navigate to='/' />} />
+            <Route path="/dreamUpload" element={<Navigate to='/' />} />
           </Routes>
           </>
         ) : (
@@ -70,6 +74,8 @@ function App() {
             <Route path="/form1" element={<SIOFormPage />} />
             <Route path="/form2" element={<CDFFormPage />} />
             <Route path="/form3" element={<CMFormPage />} />
+            <Route path="/caseStudy/:id" element={<CaseStudyPage />} />
+            <Route path="/dreamUpload" element={<DreamUploadPage />} />
           </Routes>
         )}
       </BrowserRouter>
