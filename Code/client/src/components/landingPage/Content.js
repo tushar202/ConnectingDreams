@@ -5,6 +5,40 @@ import classes from "./Content.module.css";
 import { Divider } from "antd";
 import Lottie from "react-lottie-player";
 import lottiejson from "../../assets/LandingPage.json";
+import React from 'react';
+import { Chart } from "react-google-charts";
+
+export const data = [
+  ["Year", "Dreams Received", "Dreams Fulfilled"],
+  ["2018", 8175000, 8008000],
+  ["2019", 3792000, 3694000],
+  ["2020", 3695000, 2896000],
+  ["2021", 2099000, 1953000],
+  ["2022", 1526000, 1517000],
+];
+
+export const data2 = [
+  ["Roles", "Numbers"],
+  ["Social Organization", 11],
+  ["Changemakeres", 20],
+  ["Mentors", 30],
+];
+
+export const options2 = {
+  title: "My Daily Activities",
+};
+
+export const options = {
+  chartArea: { width: "50%" },
+  hAxis: {
+    title: "Dreams Connected",
+    minValue: 0,
+  },
+  vAxis: {
+    title: "Year",
+  },
+};
+
 
 const Content = () => {
   const history = useNavigate();
@@ -54,99 +88,23 @@ const Content = () => {
         </Row>
         <Divider style={{ fontSize: "2em", fontWeight: "bold" }}>
         </Divider>
-        {/* <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginBottom: "120px",
-          }}
-        >
-          <Tabs
-            onChange={(activeKey) => {
-              setActiveTabkey(activeKey);
-            }}
-            tabPosition={dimensions.width < 500 ? "top" : "left"}
-          >
-            <TabPane tab={<Avatar name="1" color="green" size={40} />} key="1">
-              <div
-                style={{
-                  width: dimensions.width < 500 ? dimensions.width : "600px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "flex-start",
-                }}
-              >
-                <Lottie
-                  loop
-                  animationData={lottieJson}
-                  play
-                  style={{
-                    width: 280,
-                    height: 280,
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                />
-                <h4 style={{ textAlign: "center", marginTop: "-30px" }}>
-                  Build &#38; Manage Forms
-                </h4>
-              </div>
-            </TabPane>
-            <TabPane tab={<Avatar name="2" color="green" size={40} />} key="2">
-              <div
-                style={{
-                  width: dimensions.width < 500 ? dimensions.width : "600px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "flex-start",
-                }}
-              >
-                <Lottie
-                  loop
-                  animationData={lottieJson2}
-                  play
-                  style={{
-                    width: 250,
-                    height: 250,
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                />
-                <h4 style={{ textAlign: "center", marginTop: "0px" }}>
-                  Upload Form Reference
-                </h4>
-              </div>
-            </TabPane>
-            <TabPane tab={<Avatar name="3" color="green" size={40} />} key="3">
-              <div
-                style={{
-                  width: dimensions.width < 500 ? dimensions.width : "600px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "flex-start",
-                }}
-              >
-                <Lottie
-                  loop
-                  animationData={lottieJson3}
-                  play
-                  style={{
-                    width: 300,
-                    height: 300,
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                />
-                <h4 style={{ textAlign: "center", marginTop: "-50px" }}>
-                  Collect &#38; Download Responses
-                </h4>
-              </div>
-            </TabPane>
-          </Tabs>
-        </div> */}
+        <div>
+      <Chart
+        chartType="BarChart"
+        width="100%"
+        height="400px"
+        data={data}
+        options={options}
+      />
+      <Chart
+        chartType="PieChart"
+        data={data2}
+        options={options}
+        width={"100%"}
+        height={"400px"}
+      />
+    </div>
+        
       </Container>
       {/* <SimpleReactFooter
         description={description}
@@ -159,5 +117,5 @@ const Content = () => {
     </>
   );
 };
-
+    
 export default Content;
