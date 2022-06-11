@@ -22,3 +22,22 @@ exports.uploadDream=catchAsyncError(async(req,res,next)=>{
         message:'submitted successfuly'
     })
 })
+
+exports.getProposal=catchAsyncError(async(req,res,next)=>{
+    const proposal=await Team.find({verified:false}).populate('cdf')
+    console.log(proposal)
+    res.send({
+        success:true
+    })
+})
+
+
+exports.selectProposal=catchAsyncError(async(req,res,next)=>{
+    const proposalId=req.body.proposalId
+    const proposal=await Drea.findOne({_id:proposalId})
+    proposal.selected=true;
+    await proposal.save()
+    res.send({
+        success:true
+    })
+})

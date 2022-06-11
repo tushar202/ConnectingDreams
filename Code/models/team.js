@@ -18,6 +18,10 @@ const TeamSchema = new mongoose.Schema({
         ref: 'cdf',
         required: true
     },
+    selected:{
+        type:Boolean,
+        required:true  
+    },
     proposalLink: [{
        proposalLink:String,
        fileName:String
