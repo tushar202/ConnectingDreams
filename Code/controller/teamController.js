@@ -10,12 +10,12 @@ const cloudinary = require('cloudinary');
 exports.teamProposal = catchAsyncError(async (req, res, next) => {
   
   
-    const { tname, size, user} = req.body;
+    const { tname, size} = req.body;
     const proposalLink=req.files.map((f) => ({ proposalLink: f.path,fileName: f.filename}));
       const newTeam = new Team({
         tname: tname,
         size: size,
-        user: user,
+        user: req.user._id,
         proposalLink:proposalLink,
       });
 

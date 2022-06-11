@@ -9,5 +9,6 @@ const cloudinary = require('cloudinary');
 
 
 
-router.post("/create",upload.array("pdf_link"), cdfController.create);
+
+router.post("/create",auth,upload.array("pdf_link"), cdfController.create);
 module.exports = router;

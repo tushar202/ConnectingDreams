@@ -7,8 +7,7 @@ const multer=require('multer')
 const upload = multer({ storage });
 const cloudinary = require('cloudinary');
 
-
-router.post("/teamProposal", upload.array("proposalLink"), teamController.teamProposal);
+router.post("/teamProposal",auth, upload.array("proposalLink"), teamController.teamProposal);
 
 
 
