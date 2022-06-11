@@ -31,3 +31,9 @@ exports.view = catchAsyncError(async (req, res, next) => {
   const allTeams = await Team.find({cdf_id:cdf_id});
   res.status(200).json(allTeams);
 })
+
+exports.findOne = catchAsyncError(async (req,res,next) => {
+  const id = req.params.id;
+  const oneTeam = await Team.findById(id);
+  res.status(200).json(oneTeam);
+})
