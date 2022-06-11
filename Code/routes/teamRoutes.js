@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("../middleware/auth");
+const {auth} = require("../middleware/auth");
 const teamController = require("../controller/teamController")
 const { storage } = require("../utils/CloudinaryUtils");
 const multer=require('multer')
