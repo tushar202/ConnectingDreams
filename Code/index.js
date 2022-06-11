@@ -14,6 +14,8 @@ require('./utils/connectdb');
 //Router imports
 const userRouter = require('./routes/userRoutes');
 const teamRouter = require('./routes/teamRoutes');
+const sioRouter=require('./routes/sioRoutes')
+
 
 const app = express();
 const PORT = process.env.PORT || 7000;
@@ -32,6 +34,7 @@ app.use(errorMiddleWare)
 app.use('/user', userRouter);
 app.use('/team',teamRouter);
 
+app.use('/sio',sioRouter)
 app.get('/', (req,res) => {
     res.send('HOME');
 })
