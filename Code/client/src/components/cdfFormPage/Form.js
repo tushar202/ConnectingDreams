@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
+import { Upload, Button as Btn } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
 
 const FormPage = () => {
@@ -11,6 +13,15 @@ const FormPage = () => {
   const [endDateImplementation, setEndDateImplementation] = useState("");
   const [tag, setTag] = useState("");
   const [location, setLocation] = useState("");
+
+  const [file, setFile] = useState({
+    fileList: [],
+  });
+
+  const handleUpload = ({ fileList }) => {
+    console.log("fileList", fileList);
+    setFile({ fileList });
+  };
 
   const psNameChangeHandler = (event) => {
     setPsName(event.target.value);
@@ -38,37 +49,43 @@ const FormPage = () => {
   };
 
   const formSubmitHandler = async (event) => {
-    event.PreventDefault();
-    // const formdata = new FormData
+    event.preventDefault();
+
+    let formdata = new FormData();
+    if (file.fileList.length > 0) {
+      for (let i = 0; i < file.fileList.length; i++) {
+        formdata.append("file", file.fileList[i].originFileObj);
+      }
+    }
+    formdata.append("",);
     // const response = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}`);
   };
 
   return (
     <>
       <Form onSubmit={formSubmitHandler}>
-        <Form.Group className="mb-3">
-          <Row>
-            <Col>
-              <Form.Label>Problem Statement</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Problem Statement Name"
-                value={psName}
-                onChange={psNameChangeHandler}
-              />
-            </Col>
-            <Col>
-              <Form.Label>Form Field</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Field of the form"
-                // value={lname}
-                // onChange={lnameChangeHandler}
-              />
-            </Col>
-          </Row>
+        <Form.Group>
+          <Form.Label>Problem Statement</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Problem Statement Name"
+            value={psName}
+            onChange={psNameChangeHandler}
+          />
         </Form.Group>
-
+        <Form.Group>
+          <Form.Label>Case Study</Form.Label>
+          <br />
+          <Upload
+            multiple={true}
+            listType="pdf"
+            fileList={file.fileList}
+            onChange={handleUpload}
+            beforeUpload={() => false}
+          >
+            <Btn icon={<UploadOutlined />}>Upload</Btn>
+          </Upload>
+        </Form.Group>
         <Form.Group className="mb-3" controlId="DateApplication">
           <Row>
             <Col>

@@ -30,7 +30,7 @@ const FormPage = () => {
     }
 
     const formSubmitHandler = async(event) => {
-        event.PreventDefault();
+        event.preventDefault();
         const reqBody = {
             sioName,
             userName,

@@ -1,28 +1,66 @@
-import React,{useState} from "react";
-import {Form, Row, Col, Button} from "react-bootstrap";
+import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
+import { Upload, Button as Btn } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import axios from "axios";
+import NProgress from "nprogress";
+import "../authPage/nprogress.css";
 
 
 const FormPage = () => {
   const [teamName, setTeamName] = useState("");
-  const [userName, setUserName] = useState("");
+  // const [userName, setUserName] = useState("");
   const [noMembers, setNoMembers] = useState(1);
+  const [file, setFile] = useState({
+    fileList: [],
+  });
+
+  const handleUpload = ({ fileList }) => {
+    console.log("fileList", fileList);
+    setFile({ fileList });
+  };
 
   const teamNameChangeHandler = (event) => {
     setTeamName(event.target.value);
-  }
-  const userNameChangeHandler = (event) => {
-    setUserName(event.target.value);
-  }
+  };
+  // const userNameChangeHandler = (event) => {
+  //   setUserName(event.target.value);
+  // };
   const noMembersChangeHandler = (event) => {
     setNoMembers(event.target.value);
+  };
+
+  const formSubmitHandler = async (event) => {
+    event.preventDefault();
+    NProgress.start();
+
+    let formdata = new FormData();
+    const token = localStorage.getItem("auth-token");
+    if (file.fileList.length > 0) {
+      for (let i = 0; i < file.fileList.length; i++) {
+        formdata.append("proposalLink", file.fileList[i].originFileObj);
+      }
+    }
+    formdata.append("tname", teamName);
+    formdata.append("size",noMembers);
+    const response = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}`, formdata, {
+      headers: { "x-auth-token": token },
+    })
+    if (response.data.success) {
+      console.log("Success");
+      NProgress.done();
+    } else{
+      console.log("Failed");
+    }
+
   }
 
   return (
     <>
-      <Form>
+      <Form onSubmit={formSubmitHandler}>
         <Form.Group className="mb-3">
-          <Row>
-            <Col>
+          {/* <Row>
+            <Col> */}
               <Form.Label>Team Name</Form.Label>
               <Form.Control
                 type="text"
@@ -30,8 +68,8 @@ const FormPage = () => {
                 value={teamName}
                 onChange={teamNameChangeHandler}
               />
-            </Col>
-            <Col>
+            {/* </Col> */}
+            {/* <Col>
               <Form.Label>UserName</Form.Label>
               <Form.Control
                 type="text"
@@ -39,19 +77,34 @@ const FormPage = () => {
                 value={userName}
                 onChange={userNameChangeHandler}
               />
-            </Col>
-          </Row>
+            </Col> */}
+          {/* </Row> */}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>No. of Team Members: {noMembers}</Form.Label>
-          <Form.Range step={1} min={1} max={10} value={noMembers} onChange={noMembersChangeHandler}/>
+          <Form.Range
+            step={1}
+            min={1}
+            max={10}
+            value={noMembers}
+            onChange={noMembersChangeHandler}
+          />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Proposal</Form.Label>
-          <Form.Control type="text" placeholder="Proposal" />
+          <br />
+          <Upload
+            multiple={true}
+            listType="pdf"
+            fileList={file.fileList}
+            onChange={handleUpload}
+            beforeUpload={() => false}
+          >
+            <Btn icon={<UploadOutlined />}>Upload</Btn>
+          </Upload>
         </Form.Group>
-       
+
         <Button variant="dark" type="submit">
           Submit
         </Button>
