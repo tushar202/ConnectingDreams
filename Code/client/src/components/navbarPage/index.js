@@ -7,6 +7,7 @@ import axios from "axios";
 
 import classes from "./index.module.css";
 import { userActions } from "../../store/user";
+import Logo from "../../assets/images/Logo.png";
 
 const NavbarPage = (props) => {
   const location = useLocation();
@@ -58,7 +59,7 @@ const NavbarPage = (props) => {
       >
         <Container>
           <Navbar.Brand as={Link} to={userData.user ? "/home" : "/"}>
-            {/* <img src={Logo} alt="" /> */}
+            <img src={Logo} alt="" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">

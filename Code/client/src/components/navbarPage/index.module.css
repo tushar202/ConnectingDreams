@@ -23,14 +23,14 @@
 }
 
 .signUpBtn{
-    background-color: #13d461;
+    background-color: #B4C71E;
     border-radius: 20px;
-    border-color: #13d461;
+    border-color: #B4C71E;
     transition: all 0.5s;
 }
 
 .signUpBtn:hover{
-    background-color: #13d461;
+    background-color: #B4C71E;
     transform: scale(1.05);
-    border-color: #13d461;
+    border-color: #B4C71E;
 }

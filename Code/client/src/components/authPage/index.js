@@ -15,10 +15,10 @@ const AuthModal = (props) => {
       <style type="text/css">
         {`
           .nav-link {
-            color: #13d461;
+            color: #B4C71E;
           }
           .nav-link:hover {
-            color: #13d461;
+            color: #B4C71E;
           }
         `}
       </style>
@@ -29,7 +29,7 @@ const AuthModal = (props) => {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">NGO NAME</Modal.Title>
+          <Modal.Title id="contained-modal-title-vcenter">Connecting Dreams</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Tabs

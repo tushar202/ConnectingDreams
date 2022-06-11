@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import LandingPage from "./components/landingPage";
 import HomePage from "./components/homePage";
 import { userActions } from "./store/user";
+import SIOFormPage from "./components/sioFormPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -55,12 +56,14 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/home" element={<Navigate to='/' />} />
+            <Route path="/form1" element={<Navigate to='/' />} />
           </Routes>
           </>
         ) : (
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/home" element={<HomePage />} />
+            <Route path="/form1" element={<SIOFormPage />} />
           </Routes>
         )}
       </BrowserRouter>
