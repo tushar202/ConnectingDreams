@@ -43,7 +43,8 @@ const FormPage = () => {
     }
     formdata.append("tname", teamName);
     formdata.append("size",noMembers);
-    const response = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}`, formdata, {
+    // formdata.append("cdf_id", );
+    const response = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}team/teamProposal`, formdata, {
       headers: { "x-auth-token": token },
     })
     if (response.data.success) {

@@ -3,6 +3,8 @@ import { Form, Row, Col, Button } from "react-bootstrap";
 import { Upload, Button as Btn } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
+import NProgress from "nprogress";
+import "../authPage/nprogress.css";
 
 const FormPage = () => {
   const [psName, setPsName] = useState("");
@@ -50,15 +52,34 @@ const FormPage = () => {
 
   const formSubmitHandler = async (event) => {
     event.preventDefault();
+    NProgress.start();
 
     let formdata = new FormData();
+    const token = localStorage.getItem("auth-token");
     if (file.fileList.length > 0) {
       for (let i = 0; i < file.fileList.length; i++) {
-        formdata.append("file", file.fileList[i].originFileObj);
+        formdata.append("pdf_link", file.fileList[i].originFileObj);
       }
     }
-    formdata.append("",);
-    // const response = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}`);
+    formdata.append("title",psName);
+    formdata.append("application_start_date",startDateApplication);
+    formdata.append("application_end_date",endDateApplication);
+    formdata.append("selection_process_result",endDateSelection);
+    formdata.append("implementation_start",startDateImplementation);
+    formdata.append("implementation_end",endDateImplementation);
+    formdata.append("tags",tag);
+    formdata.append("location",location);
+
+    const response = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}cdf/create`,formdata, {
+      headers: { "x-auth-token": token },
+    });
+    if(response.data.success){
+      console.log('success');
+      NProgress.done();
+
+    }else{
+      console.log('error');
+    }
   };
 
   return (
