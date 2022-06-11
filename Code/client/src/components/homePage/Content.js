@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Layout, Tabs } from "antd";
+import "./Content.css";
 
 const { Content, Footer } = Layout;
 const { TabPane } = Tabs;
