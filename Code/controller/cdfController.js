@@ -50,7 +50,7 @@ exports.create = catchAsyncError(async (req,res,next) => {
         const saved_CDF = await newCDF.save();
         res.send({
             success: true,
-            message: "User Registered Successfully!",
+            message: "Case Study added successfully!",
             saved_CDF,
         });
     }
