@@ -6,6 +6,7 @@ const multer = require("multer");
 const { storage } = require("../utils/CloudinaryUtils");
 const upload = multer({ storage });
 const cloudinary = require('cloudinary');
+const Dream = require("../models/dream");
 
 
 exports.create = catchAsyncError(async (req, res, next) => {
@@ -49,4 +50,13 @@ exports.findOne = catchAsyncError(async (req,res,next) => {
     const id = req.params.id;
     const oneCDF = await CDF.findById(id);
     res.status(200).json(oneCDF);
+})
+
+exports.getUnverifiedDreams=catchAsyncError(async(req,res,next)=>{
+    const result=await Dream.find({verified:false});
+    console.log(result)
+    res.status(200).send({
+        success:true,
+        dreams:result
+    })
 })

@@ -64,7 +64,7 @@ const NavbarPage = (props) => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="m-auto">
-              <Nav.Link className={classes["links"]} as={Link} to="/dreamUpload">
+              <Nav.Link className={classes["links"]} as={Link} to="/cdfAdminConsole">
                 SIOFORM
               </Nav.Link>
               {userData.user && location.pathname === "/" && (

@@ -1,11 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Col, Row, Button } from "react-bootstrap";
+import { Container, Col, Row, Button, Card } from "react-bootstrap";
 import classes from "./Content.module.css";
 import { Divider } from "antd";
 import Lottie from "react-lottie-player";
 import lottiejson from "../../assets/LandingPage.json";
-import React from 'react';
 import { Chart } from "react-google-charts";
 
 export const data = [
@@ -39,12 +38,11 @@ export const options = {
   },
 };
 
-
 const Content = () => {
   const history = useNavigate();
   const onGetStartedClick = () => {
-    history('/home')
-  }
+    history("/home");
+  };
   return (
     <>
       <Container style={{ paddingTop: "2.5em" }}>
@@ -56,9 +54,10 @@ const Content = () => {
               Changing Lives.
             </div>
             <p className={classes["bannerDescp"]}>
-            We provide the youth with an opportunity to empower people through entrepreneurial action to improve their livelihoods in an {" "}
+              We provide the youth with an opportunity to empower people through
+              entrepreneurial action to improve their livelihoods in an{" "}
               <span style={{ color: "#B4C71E", fontWeight: "bold" }}>
-              economically, socially and environmentally sustainable way.
+                economically, socially and environmentally sustainable way.
               </span>{" "}
             </p>
             <Button onClick={onGetStartedClick} size="lg" variant="dark">
@@ -86,25 +85,29 @@ const Content = () => {
             />
           </Col>
         </Row>
-        <Divider style={{ fontSize: "2em", fontWeight: "bold" }}>
-        </Divider>
-        <div>
-      <Chart
-        chartType="BarChart"
-        width="100%"
-        height="400px"
-        data={data}
-        options={options}
-      />
-      <Chart
-        chartType="PieChart"
-        data={data2}
-        options={options}
-        width={"100%"}
-        height={"400px"}
-      />
-    </div>
-        
+        <Divider style={{ fontSize: "2em", fontWeight: "bold" }}>STATS</Divider>
+        <Card>
+          <Card.Body>
+            <div>
+              <Chart
+                chartType="BarChart"
+                width="100%"
+                height="400px"
+                data={data}
+                options={options}
+              />
+              <Chart
+                chartType="PieChart"
+                data={data2}
+                options={options}
+                width={"100%"}
+                height={"400px"}
+              />
+            </div>
+          </Card.Body>
+        </Card>
+        <br />
+        <br />
       </Container>
       {/* <SimpleReactFooter
         description={description}
@@ -117,5 +120,5 @@ const Content = () => {
     </>
   );
 };
-    
+
 export default Content;

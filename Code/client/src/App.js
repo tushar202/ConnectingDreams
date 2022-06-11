@@ -13,6 +13,9 @@ import CDFFormPage from "./components/cdfFormPage";
 import CMFormPage from "./components/cmFormPage";
 import CaseStudyPage from "./components/caseStudyPage";
 import DreamUploadPage from "./components/dreamUploadPage";
+import CDFAdminPage from "./components/cdfAdminPage";
+import SIOAdminPage from "./components/sioAdminPage";
+import CaseStudyUploadPage from "./components/caseStudyUploadPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -65,6 +68,9 @@ function App() {
             <Route path="/form3" element={<Navigate to='/' />} />
             <Route path="/caseStudy/:id" element={<Navigate to='/' />} />
             <Route path="/dreamUpload" element={<Navigate to='/' />} />
+            <Route path="/cdfAdminConsole" element={<Navigate to='/' />} />
+            <Route path="/sioAdminConsole" element={<Navigate to='/' />} />
+            <Route path="/createCaseStudy" element={<Navigate to='/' />} />
           </Routes>
           </>
         ) : (
@@ -76,6 +82,9 @@ function App() {
             <Route path="/form3" element={<CMFormPage />} />
             <Route path="/caseStudy/:id" element={<CaseStudyPage />} />
             <Route path="/dreamUpload" element={<DreamUploadPage />} />
+            <Route path="/cdfAdminConsole" element={<CDFAdminPage />} />
+            <Route path="/sioAdminConsole" element={<SIOAdminPage />} />
+            <Route path="/createCaseStudy" element={<CaseStudyUploadPage />} />
           </Routes>
         )}
       </BrowserRouter>

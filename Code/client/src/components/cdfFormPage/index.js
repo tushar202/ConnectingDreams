@@ -3,10 +3,10 @@ import { Container } from "react-bootstrap";
 
 import Form from "./Form";
 
-const CDFFormPage = () => {
+const CDFFormPage = (props) => {
   return (
     <Container>
-      <Form />
+      <Form sioId={props.sioId}/>
     </Container>
   );
 };
