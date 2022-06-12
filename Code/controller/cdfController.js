@@ -57,7 +57,6 @@ exports.findOne = catchAsyncError(async (req,res,next) => {
     res.status(200).json(oneCDF);
 })
 
-
 exports.getUnverifiedDreams=catchAsyncError(async(req,res,next)=>{
     const result=await Dream.find({verified:false});
     console.log(result)
@@ -69,6 +68,7 @@ exports.getUnverifiedDreams=catchAsyncError(async(req,res,next)=>{
 })
 
 exports.verifyDream=catchAsyncError(async (req,res,next)=>{
+    console.log(req.body)
     const dreamId=req.body.id
     const dream=await Dream.findOne({_id:dreamId})
     dream.verified=true;

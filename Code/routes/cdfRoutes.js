@@ -9,9 +9,10 @@ const cloudinary = require('cloudinary');
 
 router.get("/view",cdfController.getAll);
 router.post("/create",auth,upload.array("pdf_link"), cdfController.create);
-// router.get("/:id",cdfController.findOne);
 router.get("/getUnverifiedDreams",cdfController.getUnverifiedDreams)
 router.post("/verifyDream",auth,cdfController.verifyDream)
 router.post('/assignRole',auth,cdfController.assignRole)
+router.get("/:id",cdfController.findOne);
+
 
 module.exports = router;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { Upload, Button as Btn } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
@@ -14,6 +15,8 @@ const FormPage = () => {
   const [file, setFile] = useState({
     fileList: [],
   });
+
+  const params = useParams();
 
   const handleUpload = ({ fileList }) => {
     console.log("fileList", fileList);
@@ -43,7 +46,7 @@ const FormPage = () => {
     }
     formdata.append("tname", teamName);
     formdata.append("size",noMembers);
-    // formdata.append("cdf_id", );
+    formdata.append("cdf_id", params.id);
     const response = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}team/teamProposal`, formdata, {
       headers: { "x-auth-token": token },
     })

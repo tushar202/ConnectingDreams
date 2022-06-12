@@ -1,4 +1,10 @@
-import React from 'react';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { Container, Col, Row, Button, Card } from "react-bootstrap";
+import classes from "./Content.module.css";
+import { Divider } from "antd";
+import Lottie from "react-lottie-player";
+import lottiejson from "../../assets/LandingPage.json";
 import { Chart } from "react-google-charts";
 
 export const data = [
@@ -32,26 +38,87 @@ export const options = {
   },
 };
 
-
 const Content = () => {
+  const history = useNavigate();
+  const onGetStartedClick = () => {
+    history("/home");
+  };
   return (
-    <div>
-      <Chart
-        chartType="BarChart"
-        width="100%"
-        height="400px"
-        data={data}
-        options={options}
-      />
-      <Chart
-        chartType="PieChart"
-        data={data2}
-        options={options}
-        width={"100%"}
-        height={"400px"}
-      />
-    </div>
-  )
-}
+    <>
+      <Container style={{ paddingTop: "2.5em" }}>
+        <Row>
+          <Col lg={true} style={{ paddingTop: "0.7em" }}>
+            <div className={classes["bannerTitle"]}>
+              Connecting Dreams,
+              <br />
+              Changing Lives.
+            </div>
+            <p className={classes["bannerDescp"]}>
+              We provide the youth with an opportunity to empower people through
+              entrepreneurial action to improve their livelihoods in an{" "}
+              <span style={{ color: "#B4C71E", fontWeight: "bold" }}>
+                economically, socially and environmentally sustainable way.
+              </span>{" "}
+            </p>
+            <Button onClick={onGetStartedClick} size="lg" variant="dark">
+              Get started
+            </Button>
+          </Col>
+          <Col
+            lg={true}
+            style={{
+              height: "500px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Lottie
+              loop
+              animationData={lottiejson}
+              play
+              style={{
+                width: 280,
+                height: 280,
+                display: "flex",
+                justifyContent: "center",
+              }}
+            />
+          </Col>
+        </Row>
+        <Divider style={{ fontSize: "2em", fontWeight: "bold" }}>STATS</Divider>
+        <Card>
+          <Card.Body>
+            <div>
+              <Chart
+                chartType="BarChart"
+                width="100%"
+                height="400px"
+                data={data}
+                options={options}
+              />
+              <Chart
+                chartType="PieChart"
+                data={data2}
+                options={options}
+                width={"100%"}
+                height={"400px"}
+              />
+            </div>
+          </Card.Body>
+        </Card>
+        <br />
+        <br />
+      </Container>
+      {/* <SimpleReactFooter
+        description={description}
+        title={title}
+        columns={columns}
+        iconColor="black"
+        backgroundColor="#212529"
+        fontColor="white"
+      /> */}
+    </>
+  );
+};
 
 export default Content;

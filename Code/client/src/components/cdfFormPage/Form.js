@@ -6,7 +6,7 @@ import axios from "axios";
 import NProgress from "nprogress";
 import "../authPage/nprogress.css";
 
-const FormPage = () => {
+const FormPage = (props) => {
   const [psName, setPsName] = useState("");
   const [startDateApplication, setStartDateApplication] = useState("");
   const [endDateApplication, setEndDateApplication] = useState("");
@@ -75,6 +75,13 @@ const FormPage = () => {
     });
     if(response.data.success){
       console.log('success');
+      console.log(props.sioId)
+      const resp = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}cdf/verifyDream`,{id: props.sioId},{
+        headers: { "x-auth-token": token },
+      })
+      if(resp.data.success){
+        console.log("Verified")
+      }
       NProgress.done();
 
     }else{
