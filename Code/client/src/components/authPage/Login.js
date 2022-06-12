@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import NProgress from "nprogress";
 import { Button, Form, Alert } from "react-bootstrap";
+import { showNotification } from '@mantine/notifications';
 
 import "./nprogress.css";
 import { userActions } from "../../store/user";
@@ -43,11 +44,10 @@ const Login = () => {
         localStorage.setItem("auth-token", loginResponse.data.token);
         localStorage.setItem("user", JSON.stringify(loginResponse.data.user));
         NProgress.done();
-        // addToast(loginResponse.data.message, {
-        //   appearance: "success",
-        //   autoDismiss: true,
-        //   autoDismissTimeout: 2000,
-        // });
+        showNotification({
+          title: 'Login Status',
+          message: 'Logged In Successfully!',
+        })
         history("/home");
       } else {
         setError(loginResponse.data.message);

@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Breadcrumb, Layout, Menu, Button } from "antd";
-import { Link } from "react-router-dom";
 import NavbarPage from "../navbarPage";
 import "./index.css";
 import axios from "axios";
-import { Space, Table, Tag } from "antd";
-const { Header, Content, Footer, Sider } = Layout;
-
+import { Table } from "antd";
+import {useNavigate} from "react-router-dom";
+import { showNotification } from '@mantine/notifications';
+const { Content, Footer, Sider } = Layout;
 
 const CDFAdminPage = () => {
   const [plans, setPlans] = useState([]);
-  const [shortlisting, isShortlisting] = useState(false);
   const token = localStorage.getItem("auth-token");
-  
+  const history = useNavigate();
   const onClickHandler = async (key) => {
     console.log(key)
     const resp = await axios.post(
@@ -27,6 +26,11 @@ const CDFAdminPage = () => {
 
     if (resp.data.success) {
       console.log("shortlisted");
+      showNotification({
+        title: 'ShortList Status',
+        message: 'Proposal Shortlisted Successfully!',
+      })
+      history('/');
     }
   };
 

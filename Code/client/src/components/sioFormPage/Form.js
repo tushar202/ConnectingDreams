@@ -2,7 +2,9 @@ import React, {useState} from "react";
 import {Form, Button} from "react-bootstrap";
 import axios from 'axios';
 import NProgress from "nprogress";
+import {useNavigate} from "react-router-dom";
 import "../authPage/nprogress.css";
+import { showNotification } from '@mantine/notifications';
 
 const FormPage = () => {
     const [sioName, setSioName] = useState("");
@@ -11,7 +13,7 @@ const FormPage = () => {
     const [dreamLink, setDreamLink] = useState("");
     const [phoneNo, setPhoneNo] = useState("");
     // const [email, setEmail] = useState("");
-
+    const history = useNavigate();
     const sioNameChangeHandler = (event) => {
         setSioName(event.target.value);
     }
@@ -47,6 +49,11 @@ const FormPage = () => {
         if(response.data.message === "submitted successfuly"){
             NProgress.done();
             console.log("Success");
+            showNotification({
+                title: 'Upload Status',
+                message: 'Dream Uploaded Successfully!',
+              })
+              history('/');
         }else{
             console.log("failed");
         }

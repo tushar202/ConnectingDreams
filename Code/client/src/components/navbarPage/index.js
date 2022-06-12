@@ -4,6 +4,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import { Navbar, Nav, Container, Button, NavDropdown } from "react-bootstrap";
 import NProgress from "nprogress";
 import axios from "axios";
+import { showNotification } from "@mantine/notifications";
 
 import classes from "./index.module.css";
 import { userActions } from "../../store/user";
@@ -35,6 +36,10 @@ const NavbarPage = (props) => {
         //   autoDismiss: true,
         //   autoDismissTimeout: 2000,
         // });
+        showNotification({
+          title: 'Logout Status',
+          message: 'Logged Out Successfully!',
+        })
         history("/");
       } else {
         NProgress.done();

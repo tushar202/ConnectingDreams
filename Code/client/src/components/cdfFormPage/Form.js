@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { Upload, Button as Btn } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
 import NProgress from "nprogress";
 import "../authPage/nprogress.css";
+import { showNotification } from '@mantine/notifications';
 
 const FormPage = (props) => {
   const [psName, setPsName] = useState("");
@@ -15,7 +17,7 @@ const FormPage = (props) => {
   const [endDateImplementation, setEndDateImplementation] = useState("");
   const [tag, setTag] = useState("");
   const [location, setLocation] = useState("");
-
+  const history = useNavigate();
   const [file, setFile] = useState({
     fileList: [],
   });
@@ -83,7 +85,11 @@ const FormPage = (props) => {
         console.log("Verified")
       }
       NProgress.done();
-
+      showNotification({
+        title: 'Response notification',
+        message: 'Form Submitted Successfully!',
+      })
+      history('/')
     }else{
       console.log('error');
     }
