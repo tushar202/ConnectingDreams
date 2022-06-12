@@ -1,6 +1,6 @@
 const catchAsyncError = require("../middleware/catchAsyncError");
 const Dream=require('../models/dream')
-
+const Team=require('../models/team')
 
 exports.uploadDream=catchAsyncError(async(req,res,next)=>{
     const name=req.body.name
@@ -24,17 +24,18 @@ exports.uploadDream=catchAsyncError(async(req,res,next)=>{
 })
 
 exports.getProposal=catchAsyncError(async(req,res,next)=>{
-    const proposal=await Team.find({verified:false}).populate('cdf')
+    const proposal=await Team.find({selected:false})
     console.log(proposal)
     res.send({
-        success:true
+        success:true,
+        proposal:proposal
     })
 })
 
 
 exports.selectProposal=catchAsyncError(async(req,res,next)=>{
     const proposalId=req.body.proposalId
-    const proposal=await Drea.findOne({_id:proposalId})
+    const proposal=await Dream.findOne({_id:proposalId})
     proposal.selected=true;
     await proposal.save()
     res.send({

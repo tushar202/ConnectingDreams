@@ -73,13 +73,7 @@ exports.login = catchAsyncError(async (req, res, next) => {
               success: true,
               message: "User Logged In Successfully!",
               token: token,
-              user: {
-                id: dbUser._id,
-                email: dbUser.email,
-                username: dbUser.username,
-                fname: dbUser.fname,
-                lname: dbUser.lname,
-              },
+              user: dbUser
             });
           }
         );

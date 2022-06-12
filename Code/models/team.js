@@ -15,7 +15,7 @@ const TeamSchema = new mongoose.Schema({
     },
     cdf_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'cdf',
+        ref: 'CDF',
         required: true
     },
     selected:{
