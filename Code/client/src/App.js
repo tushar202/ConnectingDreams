@@ -4,13 +4,10 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./App.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import LandingPage from "./components/landingPage";
 import HomePage from "./components/homePage";
 import { userActions } from "./store/user";
-import SIOFormPage from "./components/sioFormPage";
-import CDFFormPage from "./components/cdfFormPage";
-import CMFormPage from "./components/cmFormPage";
 import CaseStudyPage from "./components/caseStudyPage";
 import DreamUploadPage from "./components/dreamUploadPage";
 import CDFAdminPage from "./components/cdfAdminPage";
@@ -19,7 +16,7 @@ import CaseStudyUploadPage from "./components/caseStudyUploadPage";
 
 function App() {
   const dispatch = useDispatch();
-  const userData = useSelector(state => state.user);
+  const userData = useSelector((state) => state.user);
 
   useEffect(() => {
     const checkLoggedIn = async () => {
@@ -44,7 +41,7 @@ function App() {
               headers: { "x-auth-token": token },
             }
           );
-          console.log(userRes)
+          console.log(userRes);
           dispatch(
             userActions.setUserData({ token: token, user: userRes.data.user })
           );
@@ -60,31 +57,44 @@ function App() {
       <BrowserRouter>
         {!userData.token ? (
           <>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/home" element={<Navigate to='/' />} />
-            <Route path="/form1" element={<Navigate to='/' />} />
-            <Route path="/form2" element={<Navigate to='/' />} />
-            <Route path="/form3" element={<Navigate to='/' />} />
-            <Route path="/caseStudy/:id" element={<Navigate to='/' />} />
-            <Route path="/dreamUpload" element={<Navigate to='/' />} />
-            <Route path="/cdfAdminConsole" element={<Navigate to='/' />} />
-            <Route path="/sioAdminConsole" element={<Navigate to='/' />} />
-            <Route path="/createCaseStudy" element={<Navigate to='/' />} />
-          </Routes>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/home" element={<Navigate to="/" />} />
+              <Route path="/caseStudy/:id" element={<Navigate to="/" />} />
+              <Route path="/dreamUpload" element={<Navigate to="/" />} />
+              <Route path="/cdfAdminConsole" element={<Navigate to="/" />} />
+              <Route path="/sioAdminConsole" element={<Navigate to="/" />} />
+              <Route path="/createCaseStudy" element={<Navigate to="/" />} />
+            </Routes>
           </>
         ) : (
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/home" element={<HomePage />} />
-            <Route path="/form1" element={<SIOFormPage />} />
-            <Route path="/form2" element={<CDFFormPage />} />
-            <Route path="/form3" element={<CMFormPage />} />
             <Route path="/caseStudy/:id" element={<CaseStudyPage />} />
-            <Route path="/dreamUpload" element={<DreamUploadPage />} />
-            <Route path="/cdfAdminConsole" element={<CDFAdminPage />} />
-            <Route path="/sioAdminConsole" element={<SIOAdminPage />} />
-            <Route path="/createCaseStudy" element={<CaseStudyUploadPage />} />
+            {userData.user.role === "sio" ? (
+              <Route path="/dreamUpload" element={<DreamUploadPage />} />
+            ) : (
+              <Route path="/dreamUpload" element={<Navigate to="/" />} />
+            )}
+            {userData.user.role === "admin" ? (
+              <Route path="/cdfAdminConsole" element={<CDFAdminPage />} />
+            ) : (
+              <Route path="/cdfAdminConsole" element={<Navigate to="/" />} />
+            )}
+            {userData.user.role === "sio" ? (
+              <Route path="/sioAdminConsole" element={<SIOAdminPage />} />
+            ) : (
+              <Route path="/sioAdminConsole" element={<Navigate to="/" />} />
+            )}
+            {userData.user.role === "admin" ? (
+              <Route
+                path="/createCaseStudy"
+                element={<CaseStudyUploadPage />}
+              />
+            ) : (
+              <Route path="/createCaseStudy" element={<Navigate to="/" />} />
+            )}
           </Routes>
         )}
       </BrowserRouter>

@@ -50,6 +50,13 @@ const NavbarPage = (props) => {
 
   return (
     <>
+      <style type="text/css">
+        {`
+          .navbar-collapse .collapse{
+            justify-content: end !important;
+          }
+        `}
+      </style>
       <Navbar
         className={classes["navbar"]}
         collapseOnSelect
@@ -63,21 +70,58 @@ const NavbarPage = (props) => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="m-auto">
-              <Nav.Link className={classes["links"]} as={Link} to="/cdfAdminConsole">
-                SIOFORM
-              </Nav.Link>
-              {userData.user && location.pathname === "/" && (
+            {userData.user.role === "cm" && (
+              <Nav className="m-auto">
                 <Nav.Link className={classes["links"]} as={Link} to="/home">
                   Home
                 </Nav.Link>
-              )}
-              {userData.user && location.pathname !== "/" && (
                 <Nav.Link className={classes["links"]} as={Link} to="/">
                   About
                 </Nav.Link>
-              )}
-            </Nav>
+              </Nav>
+            )}
+            {userData.user.role === "admin" && (
+              <Nav className="m-auto">
+                <Nav.Link className={classes["links"]} as={Link} to="/home">
+                  Home
+                </Nav.Link>
+                <Nav.Link
+                  className={classes["links"]}
+                  as={Link}
+                  to="/cdfAdminConsole"
+                >
+                  DashBoard
+                </Nav.Link>
+                <Nav.Link className={classes["links"]} as={Link} to="/">
+                  About
+                </Nav.Link>
+              </Nav>
+            )}
+            {userData.user.role === "sio" && (
+              <Nav className="m-auto">
+                <Nav.Link className={classes["links"]} as={Link} to="/home">
+                  Home
+                </Nav.Link>
+                <Nav.Link
+                  className={classes["links"]}
+                  as={Link}
+                  to="/dreamUpload"
+                >
+                  Dream Upload
+                </Nav.Link>
+                <Nav.Link
+                  className={classes["links"]}
+                  as={Link}
+                  to="/sioAdminConsole"
+                >
+                  DashBoard
+                </Nav.Link>
+                <Nav.Link className={classes["links"]} as={Link} to="/">
+                  About
+                </Nav.Link>
+              </Nav>
+            )}
+
             {userData.user && (
               <Nav>
                 <NavDropdown
