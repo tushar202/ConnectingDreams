@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { Upload, Button as Btn } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
 import NProgress from "nprogress";
 import "../authPage/nprogress.css";
+import { showNotification } from '@mantine/notifications';
 
 
 const FormPage = () => {
@@ -15,7 +16,7 @@ const FormPage = () => {
   const [file, setFile] = useState({
     fileList: [],
   });
-
+  const history = useNavigate();
   const params = useParams();
 
   const handleUpload = ({ fileList }) => {
@@ -53,6 +54,11 @@ const FormPage = () => {
     if (response.data.success) {
       console.log("Success");
       NProgress.done();
+      showNotification({
+        title: 'Response notification',
+        message: 'Form Submitted Successfully!',
+      })
+      history('/')
     } else{
       console.log("Failed");
     }

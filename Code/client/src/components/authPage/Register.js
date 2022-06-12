@@ -1,87 +1,103 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { Form, Row, Col, Button, Alert } from "react-bootstrap";
 import NProgress from "nprogress";
 import "./nprogress.css";
-
+import { showNotification } from '@mantine/notifications';
 import { userActions } from "../../store/user";
 
 const Register = () => {
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [error, setError] = useState("");
-    const [fname, setFname] = useState("");
-    const [lname, setLname] = useState("");
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const dispatch = useDispatch(); 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
-    const history = useNavigate();
+  const history = useNavigate();
 
-    const fnameChangeHandler = (event) => {
-        setFname(event.target.value);
-      };
-    
-      const lnameChangeHandler = (event) => {
-        setLname(event.target.value);
-      };
-    
-      const usernameChangeHandler = (event) => {
-        setUsername(event.target.value);
-      };
-    
-      const emailChangeHandler = (event) => {
-        setEmail(event.target.value);
-      };
-    
-      const passwordChangeHandler = (event) => {
-        setPassword(event.target.value);
-      };
 
-      const formSubmitHandler = async (event) => {
-        event.preventDefault();
-        NProgress.start();
-        setIsSubmitting(true);
-        setError("");
-        try{
-          const newUser = {
-            fname,
-            lname,
-            username,
+  const fnameChangeHandler = (event) => {
+    setFname(event.target.value);
+  };
+
+  const lnameChangeHandler = (event) => {
+    setLname(event.target.value);
+  };
+
+  const usernameChangeHandler = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const emailChangeHandler = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const passwordChangeHandler = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const formSubmitHandler = async (event) => {
+    event.preventDefault();
+    NProgress.start();
+    setIsSubmitting(true);
+    setError("");
+    try {
+      const newUser = {
+        fname,
+        lname,
+        username,
+        email,
+        password,
+      };
+      const signupResponse = await axios.post(
+        `${process.env.REACT_APP_API_ENDPOINT}user/signup`,
+        newUser
+      );
+      setIsSubmitting(false);
+      if (signupResponse.data.success) {
+        const loginResponse = await axios.post(
+          `${process.env.REACT_APP_API_ENDPOINT}user/login`,
+          {
             email,
             password,
           }
-          const signupResponse = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}user/signup`, newUser);
-          setIsSubmitting(false);
-          if (signupResponse.data.success){
-            const loginResponse = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}user/login`, {
-              email,
-              password
-            });
-            // setUserData({
-            //   token: loginResponse.data.token,
-            //   user: loginResponse.data.user
-            // });
-            dispatch(userActions.setUserData({token: loginResponse.data.token, user: loginResponse.data.user}))
-            localStorage.setItem('auth-token', loginResponse.data.token);
-            localStorage.setItem('user', JSON.stringify(loginResponse.data.user));
-            NProgress.done();
-            // addToast(loginResponse.data.message, { appearance: 'success', autoDismiss: true, autoDismissTimeout: 2000 })
-            history('/home');
-          } else {
-            setError(signupResponse.data.message)
-            NProgress.done();
-            setUsername('');
-            setEmail('');
-            setPassword('');
-          }
-        } catch (err) {
-          setIsSubmitting(false);
-          NProgress.done();
-        }
-      };
+        );
+        // setUserData({
+        //   token: loginResponse.data.token,
+        //   user: loginResponse.data.user
+        // });
+        dispatch(
+          userActions.setUserData({
+            token: loginResponse.data.token,
+            user: loginResponse.data.user,
+          })
+        );
+        localStorage.setItem("auth-token", loginResponse.data.token);
+        localStorage.setItem("user", JSON.stringify(loginResponse.data.user));
+        NProgress.done();
+        // addToast(loginResponse.data.message, { appearance: 'success', autoDismiss: true, autoDismissTimeout: 2000 })
+        showNotification({
+          title: 'SignUp Status',
+          message: 'Registered Successfully!',
+        })
+        history("/home");
+      } else {
+        setError(signupResponse.data.message);
+        NProgress.done();
+        setUsername("");
+        setEmail("");
+        setPassword("");
+      }
+    } catch (err) {
+      setIsSubmitting(false);
+      NProgress.done();
+    }
+  };
 
   return (
     <>
