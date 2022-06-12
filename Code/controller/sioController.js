@@ -35,7 +35,7 @@ exports.getProposal=catchAsyncError(async(req,res,next)=>{
 
 exports.selectProposal=catchAsyncError(async(req,res,next)=>{
     const proposalId=req.body.proposalId
-    const proposal=await Dream.findOne({_id:proposalId})
+    const proposal=await Team.findOne({_id:proposalId})
     proposal.selected=true;
     await proposal.save()
     res.send({

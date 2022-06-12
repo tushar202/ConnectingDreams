@@ -20,7 +20,7 @@ const TeamSchema = new mongoose.Schema({
     },
     selected:{
         type:Boolean,
-        required:true  
+        default: false
     },
     proposalLink: [{
        proposalLink:String,
